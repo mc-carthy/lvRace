@@ -1,5 +1,7 @@
 local Car = require("src.Car")
 
+DEBUG = true
+
 local car
 local carSpritePath = "assets/sprites/car.png"
 
