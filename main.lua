@@ -8,7 +8,7 @@ function love.load()
 end
 
 function love.update(dt)
-
+    car:update(dt)
 end
 
 function love.draw()
