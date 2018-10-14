@@ -18,10 +18,15 @@ function Car:update(dt)
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
         self.speed = self.speed + self.acc * dt
     elseif love.keyboard.isDown("down") or love.keyboard.isDown("s") then
-        self.speed = self.speed - self.dec * dt
+        if self.speed > 0 then
+            self.speed = self.speed - self.dec * dt
+        else
+            self.speed = self.speed - self.acc * dt
+        end
     else
         self.speed = self.speed * 0.95
     end
+    
     dx, dy = Vector2.pointFromRotDist(math.deg(self.rot), self.speed * dt)
     dRot = (self.rotSpeed / (Vector2.magnitude(dx, dy) / self.speed))
     self.x = self.x + dx
@@ -37,5 +42,5 @@ function Car:update(dt)
 end
 
 function Car:draw()
-    love.graphics.draw(self.image, self.x, self.y, -self.rot, 1, 1, self.image:getWidth() / 2, self.image:getHeight() / 2)
+    love.graphics.draw(self.image, self.x, self.y, -self.rot, 0.5, 0.5, self.image:getWidth() / 2, self.image:getHeight() / 2)
 end
