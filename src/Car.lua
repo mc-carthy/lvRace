@@ -7,18 +7,25 @@ function Car:init(params)
     self.x = params.x
     self.y = params.y
     self.rot = params.rot or 0
-    self.moveSpeed = 450
+    self.acc = 450
+    self.dec = 700
+    self.speed = 0
     self.rotSpeed = 0.05
 end
 
 function Car:update(dt)
-    local dRot = 0
+    local dx, dy, dRot = 0, 0, 0
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
-        dx, dy = Vector2.pointFromRotDist(math.deg(self.rot), self.moveSpeed * dt)
-        dRot = (self.rotSpeed / (Vector2.magnitude(dx, dy) / self.moveSpeed))
-        self.x = self.x + dx
-        self.y = self.y + dy
+        self.speed = self.speed + self.acc * dt
+    elseif love.keyboard.isDown("down") or love.keyboard.isDown("s") then
+        self.speed = self.speed - self.dec * dt
+    else
+        self.speed = self.speed * 0.95
     end
+    dx, dy = Vector2.pointFromRotDist(math.deg(self.rot), self.speed * dt)
+    dRot = (self.rotSpeed / (Vector2.magnitude(dx, dy) / self.speed))
+    self.x = self.x + dx
+    self.y = self.y + dy
 
     if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
         self.rot = self.rot + dRot * dt
