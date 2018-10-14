@@ -1,12 +1,7 @@
-local Car = require("src.Car")
-
-DEBUG = true
-
-local car
-local carSpritePath = "assets/sprites/car.png"
+require("src/utils/dependencies")
 
 function love.load()
-    car = Car.create(carSpritePath, 50, 50, 0)
+    car = Car({ x = 50, y = 50 })
 end
 
 function love.update(dt)

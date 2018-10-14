@@ -1,8 +1,17 @@
-local Vector2 = require("src.utils.Vector2")
+Car = Class{}
 
-local car = {}
+local carSpritePath = "assets/sprites/car.png"
 
-local update = function(self, dt)
+function Car:init(params)
+    self.image = love.graphics.newImage(carSpritePath)
+    self.x = params.x
+    self.y = params.y
+    self.rot = params.rot or 0
+    self.moveSpeed = 450
+    self.rotSpeed = 0.05
+end
+
+function Car:update(dt)
     local dRot = 0
     if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
         dx, dy = Vector2.pointFromRotDist(math.deg(self.rot), self.moveSpeed * dt)
@@ -20,24 +29,6 @@ local update = function(self, dt)
     end
 end
 
-local draw = function(self)
+function Car:draw()
     love.graphics.draw(self.image, self.x, self.y, -self.rot, 1, 1, self.image:getWidth() / 2, self.image:getHeight() / 2)
 end
-
-car.create = function(spritePath, x, y, rot)
-    local inst = {}
-
-    inst.image = love.graphics.newImage(spritePath)
-    inst.x = x
-    inst.y = y
-    inst.rot = rot or 0
-    inst.moveSpeed = 450
-    inst.rotSpeed = 0.05
-
-    inst.update = update
-    inst.draw = draw
-
-    return inst
-end
-
-return car
