@@ -26,7 +26,7 @@ function Car:update(dt)
     else
         self.speed = self.speed * 0.95
     end
-    
+
     dx, dy = Vector2.pointFromRotDist(math.deg(self.rot), self.speed * dt)
     dRot = (self.rotSpeed / (Vector2.magnitude(dx, dy) / self.speed))
     self.x = self.x + dx
@@ -42,5 +42,5 @@ function Car:update(dt)
 end
 
 function Car:draw()
-    love.graphics.draw(self.image, self.x, self.y, -self.rot, 0.5, 0.5, self.image:getWidth() / 2, self.image:getHeight() / 2)
+    love.graphics.draw(self.image, self.x, self.y, -self.rot, 0.25 * SCALE_FACTOR, 0.25 * SCALE_FACTOR, self.image:getWidth() / 2, self.image:getHeight() / 2)
 end
