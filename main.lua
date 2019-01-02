@@ -1,6 +1,7 @@
 require("src/utils/dependencies")
 
 SCALE_FACTOR = 3
+SCREEN_WIDTH, SCREEN_HEIGHT = love.graphics.getWidth(), love.graphics.getHeight()
 
 function love.load()
     love.window.setMode(love.graphics.getWidth() * SCALE_FACTOR, love.graphics.getHeight() * SCALE_FACTOR)
