@@ -9,11 +9,11 @@ function Car:init(params)
     self.speed = { x = 0, y = 0 }
     self.rot = params.rot or 0
     self.dRot = 0
-    self.acc = 2
-    self.dec = 500
+    self.acc = 2.5
+    self.dec = 0.01
     self.maxSpeed = 200
-    self.rotSpeed = 0.1
-    self.rotDamping = 0.01
+    self.rotSpeed = 0.25
+    self.rotDamping = 0.05
     self.nextCheckpoint = 1
 end
 
@@ -27,8 +27,8 @@ function Car:update(dt)
     self.rot = (self.rot + self.dRot) * (1 - self.rotDamping)
 
     local ddX, ddY = math.cos(self.rot) * vAxis, -math.sin(self.rot) * vAxis
-    self.speed.x = self.speed.x + ddX * self.acc * dt
-    self.speed.y = self.speed.y + ddY * self.acc * dt
+    self.speed.x = (self.speed.x + ddX * self.acc * dt) * (1 - self.dec)
+    self.speed.y = (self.speed.y + ddY * self.acc * dt) * (1 - self.dec)
     self.x = self.x + self.speed.x
     self.y = self.y + self.speed.y
 end
